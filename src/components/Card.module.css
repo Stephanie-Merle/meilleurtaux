@@ -1,0 +1,15 @@
+.cards{
+    background-color: rgb(255, 255, 255);
+    height: 100px;
+    flex: 1;
+    border: 1px solid #b7b7b7;
+    border-radius: 5px;
+    box-shadow: 0 4px 0 #e4e4e4;
+}
+.cards:hover{
+    background-color: #ff9e23;
+    border-color: #ff9e23;
+    box-shadow: 0 4px 0 #e57f00;
+   }
+   
+   
