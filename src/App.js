@@ -4,10 +4,11 @@ import Cookies from "js-cookie";
 import Layout from './components/Layout';
 import CardsContainer from './components/CardsContainer';
 import Navbar from './components/Navbar';
-import state from './assets/menu.json'
+import state from './assets/menu.json'; // my data for the card menu
 import "./reset.css";
 import './App.css';
 
+// initState in case we don't have a session already
 let initState = {
   propertyType: null,
   propertyState: null,
@@ -31,9 +32,9 @@ let initState = {
 const App = () => {
 
 if(Cookies.get("FormData")){
-  initState = JSON.parse(Cookies.get("FormData"))
+  initState = JSON.parse(Cookies.get("FormData")); // getting information if existing session
 }else{
-  Cookies.set("FormData", JSON.stringify({...initState}))
+  Cookies.set("FormData", JSON.stringify({...initState})); // if not, initiating a new session
 }
 
   function reducer(data, action) {
@@ -49,51 +50,28 @@ if(Cookies.get("FormData")){
         return data;
     }
   }
-  
+ 
 const [data, dispatch] = useReducer(reducer, initState);
-console.log(data)
 
+let display= [];
+state.map((elem, i) => 
+  display.push(
+   <Route path={state[i].link} key={i}>
+       <CardsContainer data={elem} setData={(el)=> dispatch({
+           type: "SET_DATA",
+           newData: {[elem.screen]: el}
+         })} choice={data[elem.screen]} link={i<3?state[i+1].link : state[i].link}/>
+       <Navbar prev={i>0 ? state[(i-1)].link : state[i].link} page={i} next={data[elem.screen] && i<3 ? state[i+1].link : state[i].link}/>
+     </Route> 
+  )) 
   
  return(
    <Layout>
      <Router>
       <Switch>
-
-           <Route path={state[3].link}>
-            <CardsContainer data={state[3]} setData={(el)=> dispatch({
-                type: "SET_DATA",
-                newData: {currentSituation: el}
-              })} choice={data.currentSituation} link={state[3].link}/>
-            <Navbar prev={state[2].link} page={3} next={data.propertyUsage? state[3].link : state[3].link}/>
-          </Route>
-      
-          <Route path={state[2].link}>
-            <CardsContainer data={state[2]} setData={(el)=> dispatch({
-                type: "SET_DATA",
-                newData: {propertyUsage: el}
-              })} choice={data.propertyUsage} link={state[3].link}/>
-            <Navbar prev={state[1].link} page={2} next={data.propertyUsage? state[3].link : state[2].link}/>
-          </Route>
-
-          <Route path={state[1].link}>
-            <CardsContainer data={state[1]} setData={(el)=> dispatch({
-                type: "SET_DATA",
-                newData: {propertyState: el}
-              })} choice={data.propertyState} link={state[2].link}/>
-            <Navbar prev={state[0].link} page={1} next={data.propertyState? state[2].link: state[1].link}/>
-          </Route>
-       
-          <Route path={state[0].link}>
-            <CardsContainer data={state[0]} setData={(el)=> dispatch({
-                type: "SET_DATA",
-                newData: {propertyType: el}
-              })} choice={data.propertyType} link={state[1].link}/>
-            <Navbar prev={state[0].link} page={0} next={data.propertyType? state[1].link : state[0].link}/>
-          </Route>
-
+        {display.reverse()}
       </Switch>
-     </Router>
-     
+     </Router> 
    </Layout>
  )
 }
