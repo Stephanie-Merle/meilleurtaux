@@ -1,6 +1,6 @@
 import React, {useReducer} from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-//import Cookies from "js-cookie";
+import Cookies from "js-cookie";
 import Layout from './components/Layout';
 import CardsContainer from './components/CardsContainer';
 import Navbar from './components/Navbar';
@@ -8,30 +8,38 @@ import state from './assets/menu.json'
 import "./reset.css";
 import './App.css';
 
+let initState = {
+  propertyType: null,
+  propertyState: null,
+  propertyUsage: null,
+  currentSituation: null,
+  propertyLocation: {
+    country: null,
+    zip: null
+  },
+  quote: {
+    estimatedPrice: null,
+    renovationCost: null,
+    notaryFees: null,
+    totalCost: null
+  },
+  emailAddress: null,
+  checkBox: false
+}
+
+
 const App = () => {
 
-  const initState = {
-    propertyType: null,
-    propertyState: null,
-    propertyUsage: null,
-    currentSituation: null,
-    propertyLocation: {
-      country: null,
-      zip: null
-    },
-    quote: {
-      estimatedPrice: null,
-      renovationCost: null,
-      notaryFees: null,
-      totalCost: null
-    },
-    emailAddress: null,
-    checkBox: false
-  }
+if(Cookies.get("FormData")){
+  initState = JSON.parse(Cookies.get("FormData"))
+}else{
+  Cookies.set("FormData", JSON.stringify({...initState}))
+}
 
   function reducer(data, action) {
     switch (action.type) {
       case "SET_DATA": { // equivalent of setState({...data, ...newData})
+      Cookies.set("FormData", JSON.stringify({...data, ...action.newData}));
         return {
           ...data,
           ...action.newData
@@ -42,7 +50,7 @@ const App = () => {
     }
   }
   
-  const [data, dispatch] = useReducer(reducer, initState);
+const [data, dispatch] = useReducer(reducer, initState);
 console.log(data)
 
   
