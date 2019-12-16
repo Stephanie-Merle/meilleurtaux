@@ -4,12 +4,13 @@ import Title from './Title';
 import Card from './Card';
 
 const CardsContainer = (props) => {
+    const {data} = props;
+    
  return(
     <div className={Style.container}>
         <Title title={props.data.title}/>
         <div className={Style.cards_container}>
-            <Card cardName={props.data.cards[0]} />
-            <Card cardName={props.data.cards[1]} />
+        {data.cards.map(el => (<Card key={el} cardName={el} setData={props.setData} isChecked={props.choice===el? true : false} link={props.link} /> ))}
         </div>
     </div>
  )

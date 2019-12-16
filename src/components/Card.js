@@ -1,11 +1,17 @@
 import React from 'react';
-import Style from './Card.module.css'
+import Style from './Card.module.css';
+import { Link } from "react-router-dom";
 
 
 const Cards = (props) => {
+   
  return(
-    
-    <div className={Style.cards}>{props.cardName}</div>
+    <Link to={props.link} onClick={()=> props.setData(props.cardName)} className={props.isChecked? Style.selectedCard : Style.cards}>
+       <div className={Style.radio}>
+          <div className={props.isChecked? Style.checked : Style.notChecked}></div>
+       </div>
+       {props.cardName}
+   </Link>
  )
 }
 

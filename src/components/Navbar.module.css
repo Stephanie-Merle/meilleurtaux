@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    padding: 0 180px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+}
+.nb{
+    padding: 20px 180px;
+    font-size: .8rem;
+}
+.underline{
+    text-decoration: underline;
+}
+.btn{
+    background-color: #ff9e23;
+    display: flex;
+    padding: auto;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 150px;
+    color: white;
+    border-radius: 25px;
+}

@@ -43,5 +43,8 @@ table {
 	border-spacing: 0;
 }
 /* Override default style */
-
+a{
+	text-decoration: none;
+	color: inherit;
+}
 
