@@ -4,10 +4,12 @@
     justify-content: space-between;
     align-items: center;
     font-size: 1.1rem;
+    min-width: 380px;
 }
 .nb{
     padding: 20px 180px;
     font-size: .8rem;
+    min-width: 380px;
 }
 .underline{
     text-decoration: underline;
@@ -22,4 +24,28 @@
     width: 150px;
     color: white;
     border-radius: 25px;
+}
+.progressBar{
+    background-color: rgb(240, 238, 238);
+    position: relative;
+    height: 5px;
+    width: 400px;
+}
+.percentage{
+    display: flex;
+    background-color: #ff9e23;
+    width: 40px;
+    height: 40px;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 1rem;
+    border: 3px solid rgba(255, 203, 32, 0.932);
+    
+}
+@media (max-width: 992px) {
+    .navbar{
+        padding: 0 100px;
+    }
 }

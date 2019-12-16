@@ -6,6 +6,7 @@
     font-weight: 800;
     align-items: center;
     text-transform: uppercase;
+    min-width: 380px;
 }
 .title img{
     margin-top: 8px;
