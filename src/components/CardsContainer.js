@@ -4,7 +4,7 @@ import Title from './Title';
 import Card from './Card';
 
 const CardsContainer = (props) => {
-    const {data} = props;
+    const data = props.data;
     
  return(
     <div className={Style.container}>

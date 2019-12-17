@@ -19,10 +19,39 @@
     font-weight: 700;
     background-color: white;
 }
+.select:focus{
+    outline-color: #ff9e23;
+}
 .border{
     border: 1px solid rgb(168, 166, 166);
-    height: 35px;
-    width: calc(295px - 20px);
-    border-radius: .2em;
+    min-width: 278px;
+    border-radius: .3em;
     padding: 0 10px;
+    width: fit-content;
+}
+.fixer{
+    position: relative;
+}
+.modal{
+    position: absolute;
+    background-color: white;
+    border-radius: .3em;
+    border: 1px solid rgb(168, 166, 166);
+    width: 350px;
+    height: 150px;
+    left: 1em;
+    overflow: scroll;
+    scroll-behavior: smooth;
+}
+.list{
+    padding: .5em .2em ;
+}
+.list:hover{
+ color: orange;
+}
+.none{
+    display: none;
+}
+.border:focus{
+    outline-color: #ff9e23;
 }
