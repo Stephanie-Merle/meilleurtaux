@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from 'react';
+import React, {useReducer} from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Cookies from "js-cookie";
 import Layout from './components/Layout';
@@ -52,12 +52,14 @@ if(Cookies.get("FormData")){
     }
   }
  
-const [data, dispatch] = useReducer(reducer, initState);
-const [location, setLocation] = useState("/propertyLocation");
+const [data, dispatch] = useReducer(reducer, initState);       
 
 const handleLocation = (el)=> {
-  dispatch({type: "SET_DATA", newData: {propertyLocation: { country: el.country, zip: `${el.city} (${el.code})` }} });
-  setLocation("/Quote");
+  dispatch({type: "SET_DATA", newData: {propertyLocation: { country: el.country, zip: `${el.city} (${el.code})` }} }); 
+}
+
+const handleQuote = (el)=> {
+  dispatch({type: "SET_DATA", newData: {quote: { estimatedPrice: el.estimatedPrice, renovationCost: el.renovationCost, notaryFees: el.notaryFees, totalCost: el.totalCost }} });
 }
 
 let display= []; //storing all routes of the card menu with the dispatch function
@@ -77,12 +79,12 @@ state.map((elem, i) =>
      <Router>
       <Switch>
       <Route path="/Quote">
-        <Quote />
-       <Navbar prev="/propertyLocation" page={5} next="/Quote"/>
+        <Quote handleQuote={handleQuote} />
+       <Navbar prev="/propertyLocation" page={5} next="/Quote" />
      </Route> 
       <Route path="/propertyLocation">
         <PropertyLocation handleLocation={handleLocation} zip={data.propertyLocation.zip} />
-       <Navbar prev={state[3].link} page={4} next={location} />
+       <Navbar prev={state[3].link} page={4} next={data.propertyLocation.zip? "/Quote": "/propertyLocation"} />
      </Route>
         {display.reverse()}
       </Switch>
