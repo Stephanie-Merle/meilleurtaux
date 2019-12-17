@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import CardsContainer from './components/CardsContainer';
 import Navbar from './components/Navbar';
 import state from './assets/menu.json'; // my data for the card menu
+import PropertyLocation from './containers/PropertyLocation';
 import "./reset.css";
 import './App.css';
 
@@ -27,7 +28,6 @@ let initState = {
   emailAddress: null,
   checkBox: false
 }
-
 
 const App = () => {
 
@@ -53,7 +53,7 @@ if(Cookies.get("FormData")){
  
 const [data, dispatch] = useReducer(reducer, initState);
 
-let display= [];
+let display= []; //storing all routes of the card menu with the dispatch function
 state.map((elem, i) => 
   display.push(
    <Route path={state[i].link} key={i}>
@@ -61,7 +61,7 @@ state.map((elem, i) =>
            type: "SET_DATA",
            newData: {[elem.screen]: el}
          })} choice={data[elem.screen]} link={i<3?state[i+1].link : state[i].link}/>
-       <Navbar prev={i>0 ? state[(i-1)].link : state[i].link} page={i} next={data[elem.screen] && i<3 ? state[i+1].link : state[i].link}/>
+       <Navbar prev={i>0 ? state[(i-1)].link : state[i].link} page={i} next={data[elem.screen] && i<3 ? state[i+1].link : data[elem.screen]? "/propertyLocation" :  state[i].link} />
      </Route> 
   )) 
   
@@ -69,6 +69,10 @@ state.map((elem, i) =>
    <Layout>
      <Router>
       <Switch>
+      <Route path="/propertyLocation">
+        <PropertyLocation />
+       <Navbar prev={state[3].link} page={4} next="/propertyLocation"/>
+     </Route> 
         {display.reverse()}
       </Switch>
      </Router> 

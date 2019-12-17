@@ -6,7 +6,7 @@ const Title = (props) => {
  return(
      <div className={Style.title}>
    <div>{props.title}</div>
-   <img src={infos} alt="info" />
+   {props.hide? null:  <img src={infos} alt="info" />}
    </div>
  )
 }
