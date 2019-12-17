@@ -1,0 +1,28 @@
+.custom_input{
+    display: flex;
+    padding: .5em;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.3rem;
+}
+.color{
+    background-color: #F1F1F1;
+}
+.title{
+    width: 40%;
+}
+.select{
+    margin: auto 1em;
+    height: 40px;
+    width: 300px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: white;
+}
+.border{
+    border: 1px solid rgb(168, 166, 166);
+    height: 35px;
+    width: calc(295px - 20px);
+    border-radius: .2em;
+    padding: 0 10px;
+}

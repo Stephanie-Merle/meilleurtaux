@@ -1,30 +1,25 @@
 import React from 'react';
 import Title from '../components/Title';
 import Style from './PropertyLocation.module.css';
-import infos from '../assets/infos.png'
-
-// TODO Create question card with different input fields
+import CustomInput from '../components/CustomInput';
+import location from '../assets/location.json';
 
 const PropertyLocation = ()=> {
-    const location = {
-        title: "OÙ SE SITUE LE BIEN À FINANCER ?",
-        query:[
-          {title: "Dans quel pays se situe votre projet ?*",
-          answer: null},
-          {title: "Ville ou code postal*",
-          answer: null}
-        ]}
+
+      const n = Object.keys(location.queries)
+
         return(
             <div className={Style.PropertyLocation}>
               <Title title={location.title} hide={true}/>
-              <div>
-                {location.query[0].title}
-                <img src={infos} alt="info" />
-
+              <div className={Style.container}>
+                {n? n.map(el =>  <CustomInput key={el} {...location.queries[el]} color={el%2===0? true: false}/>):null}
+                <div className={Style.information}>
+                  <p>{location.information} </p>
+                  <p>{location.info}</p>
+                   </div>
               </div>
             </div>
-        )
-        
+        )     
 }
 
 export default PropertyLocation;

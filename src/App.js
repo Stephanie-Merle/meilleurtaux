@@ -60,7 +60,7 @@ state.map((elem, i) =>
        <CardsContainer data={elem} setData={(el)=> dispatch({
            type: "SET_DATA",
            newData: {[elem.screen]: el}
-         })} choice={data[elem.screen]} link={i<3?state[i+1].link : state[i].link}/>
+         })} choice={data[elem.screen]} link={data[elem.screen] && i<3? state[i+1].link : data[elem.screen]? "/propertyLocation" :  state[i].link}/>
        <Navbar prev={i>0 ? state[(i-1)].link : state[i].link} page={i} next={data[elem.screen] && i<3 ? state[i+1].link : data[elem.screen]? "/propertyLocation" :  state[i].link} />
      </Route> 
   )) 
