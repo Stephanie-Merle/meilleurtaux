@@ -12,21 +12,20 @@ import './App.css';
 
 // initState in case we don't have a session already
 let initState = {
-  propertyType: null,
-  propertyState: null,
-  propertyUsage: null,
-  currentSituation: null,
+  propertyType: "",
+  propertyState: "",
+  propertyUsage: "",
+  currentSituation: "",
   propertyLocation: {
-    country: null,
+    country: "",
     zip: ""
   },
-  quote: {
-    estimatedPrice: null,
-    renovationCost: null,
-    notaryFees: null,
-    totalCost: null
-  },
-  emailAddress: null,
+    landCost: "",
+    estimatedPrice: "",
+    renovationCost: "",
+    notaryFees: "",
+    totalCost: "",
+  emailAddress: "",
   checkBox: false
 }
 
@@ -59,7 +58,8 @@ const handleLocation = (el)=> {
 }
 
 const handleQuote = (el)=> {
-  dispatch({type: "SET_DATA", newData: {quote: { estimatedPrice: el.estimatedPrice, renovationCost: el.renovationCost, notaryFees: el.notaryFees, totalCost: el.totalCost }} });
+  dispatch({type: "SET_DATA", newData: el });
+  console.log(data)
 }
 
 let display= []; //storing all routes of the card menu with the dispatch function
@@ -79,7 +79,7 @@ state.map((elem, i) =>
      <Router>
       <Switch>
       <Route path="/Quote">
-        <Quote handleQuote={handleQuote} />
+        <Quote handleQuote={handleQuote} data={data} />
        <Navbar prev="/propertyLocation" page={5} next="/Quote" />
      </Route> 
       <Route path="/propertyLocation">

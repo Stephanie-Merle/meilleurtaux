@@ -1,3 +1,16 @@
+.quoteScreen{
+    padding: 1.3em 180px;
+}
+.container{
+    padding-top: 1.3em;
+    margin-bottom: 4em;
+}
+.information{
+    font-size: 1rem;
+    padding: 1em;
+    line-height: 1.5em;
+    line-break: auto;
+}
 .custom_input{
     display: flex;
     padding: .5em;
