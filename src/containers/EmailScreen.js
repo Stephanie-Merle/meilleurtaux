@@ -1,14 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Title from '../components/Title';
 import cover from '../assets/visuel-desktop-email.jpg';
 import Style from './EmailScreen.module.css';
 import infos from '../assets/infos.png';
 
-const EmailScreen = ({data})=> {
-
-const [isCheck, setCheck] = useState(false);
-//TODO remonter props to level up
-const [email, setEmail] = useState("");
+const EmailScreen = ({handleQuote, data})=> {
 
         return(
             <div className={Style.EmailScreen}>
@@ -29,14 +25,15 @@ const [email, setEmail] = useState("");
                     className={Style.select}
                     type="email"
                     value={data.emailAddress}
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e)=>handleQuote({emailAddress: e.target.value})}
                     />
                   </div>
                 </div>
                 <div className={Style.row}>
                 <input 
                   type="checkbox"
-                  onChange={()=>setCheck(isCheck => !isCheck)}
+                  value={data.isChecked}
+                  onChange={()=>handleQuote({isChecked: !data.isChecked})}
                   />
                   <p>J'accepte de recevoir par email des propositions de MeilleurTaux.com</p>
                 </div>
