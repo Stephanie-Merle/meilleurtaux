@@ -16,7 +16,11 @@ const Quote = ({handleQuote, data})=> {
       }
       let notaryFees = "";
       if(data.landCost && data.estimatedPrice){
-        notaryFees = ((Number(data.landCost)+Number(data.estimatedPrice))*1.8/100).toFixed(0);
+        if(data.propertyState === "Ancien"){
+          notaryFees = ((Number(data.landCost)+Number(data.estimatedPrice))*7.38/100).toFixed(0);
+        }else if(data.propertyState === "Neuf"){
+          notaryFees = ((Number(data.landCost)+Number(data.estimatedPrice))*1.8/100).toFixed(0);
+        }
       }
 
         return(

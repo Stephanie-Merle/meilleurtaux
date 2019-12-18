@@ -7,6 +7,8 @@ import Navbar from './components/Navbar';
 import state from './assets/menu.json'; // my data for the card menu
 import PropertyLocation from './containers/PropertyLocation';
 import Quote from './containers/Quote';
+import EmailScreen from './containers/EmailScreen';
+import LastScreen from './containers/LastScreen';
 import "./reset.css";
 import './App.css';
 
@@ -25,8 +27,8 @@ let initState = {
     renovationCost: "",
     notaryFees: "",
     totalCost: "",
-  emailAddress: "",
-  checkBox: false
+    emailAddress: "",
+    refNumber: ""
 }
 
 const App = () => {
@@ -78,9 +80,16 @@ state.map((elem, i) =>
    <Layout>
      <Router>
       <Switch>
+      <Route path="/LastScreen">
+        <LastScreen />
+     </Route> 
+      <Route path="/Confirmation">
+        <EmailScreen handleQuote={handleQuote} data={data}/>
+       <Navbar prev="/Quote" page={6} next="/LastScreen" />
+     </Route> 
       <Route path="/Quote">
         <Quote handleQuote={handleQuote} data={data} />
-       <Navbar prev="/propertyLocation" page={5} next="/Quote" />
+       <Navbar prev="/propertyLocation" page={5} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
      </Route> 
       <Route path="/propertyLocation">
         <PropertyLocation handleLocation={handleLocation} zip={data.propertyLocation.zip} />
