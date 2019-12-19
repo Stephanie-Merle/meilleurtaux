@@ -20,7 +20,7 @@ const fetchingData = async()=>{
       const res = await Axios.post("https://best-rates.herokuapp.com/application/", {password: password});
       setWaiting(false);
       setIsLoading(false);
-      console.log(res.data)
+
       return setData(res.data);
     }catch(e){
       console.log(e.message);
@@ -49,11 +49,17 @@ useEffect(() => {
               isLoading? <Spinner />: 
               <div className={Style.cardsContainer}>
               {data? data.applications.map(el=> <Cards 
+              key={el.ref}
               refNumber={el.refNumber} 
+              propertyLocation={el.propertyLocation}
               propertyType={el.propertyType} 
               propertyState={el.propertyState}
               totalCost={el.totalCost} 
               emailAddress={el.emailAddress} 
+              propertyUsage={el.propertyUsage}
+              landCost={el.landCost}
+              estimatedPrice={el.estimatedPrice}
+              renovationCost={el.renovationCost}
               />) : null}
               </div>
               }

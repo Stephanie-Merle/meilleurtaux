@@ -1,12 +1,26 @@
-.container{
+.bigContainer{
     display: flex;
     flex-direction: row;
     align-items: center;
 }
+.total{
+    flex-direction: column;
+    margin-bottom: 2em;
+}
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+.noHover{
+    composes: container;
+}
+
 .cards{
     background-color: rgb(255, 255, 255);
     height: 50px; 
-    flex: 1;
+    width: 15%;
     border: 1px solid #b7b7b7;
     box-shadow: 0 4px 0 #e4e4e4;
     display: flex;
@@ -23,9 +37,30 @@
 .container:hover{
     color: #ff9e23;
    }
-.container svg{
+.bigContainer svg{
     margin: auto 1em;
+    display: flex;
+    flex-direction: row;
 }
-.container svg:hover{
+.bigContainer svg:hover{
+    fill: #ff9e23;
+}
+.bigCards{
+    composes: cards;
+    background-color: rgb(243, 243, 243);
+    flex: 1;
+    border: none;
+    
+}
+.bigCards:hover{
+    color: black;
+}
+.noHover:hover{
+    color: black;
+}
+.total svg{
+    margin: 1em;
+}
+.total svg:hover{
     fill: #ff9e23;
 }
