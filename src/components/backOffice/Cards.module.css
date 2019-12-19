@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.cards{
+    background-color: rgb(255, 255, 255);
+    height: 50px; 
+    flex: 1;
+    border: 1px solid #b7b7b7;
+    box-shadow: 0 4px 0 #e4e4e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    padding: .3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-weight: 700;
+    font-size: .7rem;
+}
+.container:hover{
+    color: #ff9e23;
+   }
+.container svg{
+    margin: auto 1em;
+}
+.container svg:hover{
+    fill: #ff9e23;
+}

@@ -9,6 +9,7 @@ import PropertyLocation from './containers/PropertyLocation';
 import Quote from './containers/Quote';
 import EmailScreen from './containers/EmailScreen';
 import LastScreen from './containers/LastScreen';
+import BackOffice from './containers/BackOffice';
 import "./reset.css";
 import './App.css';
 
@@ -85,8 +86,10 @@ state.map((elem, i) =>
  return(
    <Router>
    <Layout>
-     
       <Switch>
+      <Route path="/BackOffice">
+        <BackOffice />
+     </Route>
       <Route path="/LastScreen">
         <LastScreen resetData={resetData}/>
      </Route> 

@@ -1,0 +1,41 @@
+.backOffice{
+    padding: 1.3em 180px;
+}
+.select{
+    margin: 1em 0;
+    height: 40px;
+    width: 300px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background-color: white;
+    border: 1px solid rgb(168, 166, 166);
+    min-width: 278px;
+    border-radius: .3em;
+    padding: 0 10px;
+    width: fit-content;
+}
+.select:focus{
+    outline-color: #ff9e23;
+}
+.btn{
+    background-color: #ff9e23;
+    display: flex;
+    padding: auto;
+    margin: auto 1em;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 70px;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 25px;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.cardsContainer{
+    margin: 1.5em auto;
+}

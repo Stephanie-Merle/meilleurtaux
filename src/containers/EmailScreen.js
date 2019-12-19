@@ -35,7 +35,7 @@ const EmailScreen = ({handleQuote, data})=> {
                   checked={data.isChecked}
                   onChange={()=>handleQuote({isChecked: !data.isChecked})}
                   />
-                  <p>J'accepte de recevoir par email des propositions de MeilleurTaux.com</p>
+                  <div onClick={()=>handleQuote({isChecked: !data.isChecked})}>J'accepte de recevoir par email des propositions de MeilleurTaux.com</div>
                 </div>
               </div>
             </div>

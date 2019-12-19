@@ -7,13 +7,13 @@ const Navbar = (props) => {
  return(
    <>
    <div className={Style.navbar}>
-     <Link to={props.prev} className={Style.underline}>Précédent</Link>
+     {props.page >0? <Link to={props.prev} className={Style.underline}>Précédent</Link> : <div className={Style.underline}/>}
      <div className={Style.progressBar}> 
        <div style={{position: "absolute", left: `${Math.round((props.page/7)*400)}px`, top: "-20px"}}>
         <div className={Style.percentage}>{Math.round((props.page/7)*100)}%</div>
        </div>
      </div>
-     <Link to={props.next} className={Style.btn}>Suivant</Link>
+     <Link to={props.next} className={Style.btn}>{props.page===6?"Valider":"Suivant"}</Link>
    </div>
    <div className={Style.nb}>* Champ obligatoire - <span className={Style.underline}>Mentions Légales</span></div>
    </>
