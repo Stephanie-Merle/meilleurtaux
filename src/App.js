@@ -48,20 +48,26 @@ if(Cookies.get("FormData")){
           ...action.newData
         };
       }
-
+      case "RESET_DATA": { 
+      Cookies.remove("FormData");
+        return {initState};
+      }
       default:
         return data;
     }
   }
  
 const [data, dispatch] = useReducer(reducer, initState);       
-console.log(data)
+
 const handleLocation = (el)=> {
   dispatch({type: "SET_DATA", newData: {propertyLocation: { country: el.country, zip: `${el.city} (${el.code})` }} }); 
 }
 
 const handleQuote = (el)=> {
   dispatch({type: "SET_DATA", newData: el });
+}
+const resetData = ()=> {
+  dispatch({type: "RESET_DATA"});
 }
 
 let display= []; //storing all routes of the card menu with the dispatch function
@@ -82,7 +88,7 @@ state.map((elem, i) =>
      
       <Switch>
       <Route path="/LastScreen">
-        <LastScreen />
+        <LastScreen resetData={resetData}/>
      </Route> 
       <Route path="/Confirmation">
         <EmailScreen handleQuote={handleQuote} data={data}/>
@@ -93,8 +99,8 @@ state.map((elem, i) =>
        <Navbar prev="/propertyLocation" page={5} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
      </Route> 
       <Route path="/propertyLocation">
-        <PropertyLocation handleLocation={handleLocation} zip={data.propertyLocation.zip} />
-       <Navbar prev={state[3].link} page={4} next={data.propertyLocation.zip? "/Quote": "/propertyLocation"} />
+        <PropertyLocation handleLocation={handleLocation} zip={data.propertyLocation? data.propertyLocation.zip : null} />
+       <Navbar prev={state[3].link} page={4} next={data.propertyLocation? "/Quote": "/propertyLocation"} />
      </Route>
         {display.reverse()}
       </Switch>

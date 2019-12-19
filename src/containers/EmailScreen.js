@@ -32,7 +32,7 @@ const EmailScreen = ({handleQuote, data})=> {
                 <div className={Style.row}>
                 <input 
                   type="checkbox"
-                  value={data.isChecked}
+                  checked={data.isChecked}
                   onChange={()=>handleQuote({isChecked: !data.isChecked})}
                   />
                   <p>J'accepte de recevoir par email des propositions de MeilleurTaux.com</p>

@@ -4,7 +4,7 @@ import Style from './LastScreen.module.css';
 import Axios from 'axios';
 import Cookies from "js-cookie";
 
-const LastScreen = ()=> {
+const LastScreen = ({resetData})=> {
 
 const [ref, setRef] = useState("") // to display the refNumber after we get it
 const [isError, setError] = useState(false) // to display error message if needed
@@ -14,11 +14,11 @@ const sendingData = async() => {
   try{
     const data = Cookies.get("FormData"); // getting all stored informations
     if(data){
-      const res = await Axios.post("http://localhost:3000/application/create", JSON.parse(data)); //send application to DB
+      const res = await Axios.post("https://best-rates.herokuapp.com/application/create", JSON.parse(data)); //send application to DB
       setIsLoading(false)
-      Cookies.remove("FormData") // removing cookie 
+      // Cookies.remove("FormData") // removing cookie already in reducer
       setRef(res.data.refNumber) // store refNumber to display it
-      return 
+      return resetData();
     }else{
       return console.log("Please fill the form first")
     }
