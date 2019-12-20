@@ -3,10 +3,13 @@ import Style from './Cards.module.css';
 
 const Cards = (props) => {
   const [show, setShow] = useState(false); //state to toggle short vs total view
+  let update = props.removeApplication;
  return(
-       <div className={show? Style.total : Style.bigContainer}>
-    
-    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3h18v18H3zM15 9l-6 6m0-6l6 6"/></svg>
+       <div className={show? Style.total : Style.bigContainer} >
+       
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" onClick={()=>update(props.id)} viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 3h18v18H3zM15 9l-6 6m0-6l6 6"/>
+    </svg>
     <div className={show? Style.noHover : Style.container} onClick={()=>setShow(show => !show)}> 
           <div className={show? Style.bigCards: Style.cards}>
                 ref: {props.refNumber} 
@@ -44,12 +47,8 @@ const Cards = (props) => {
               Coût des travaux: {props.renovationCost} 
               </div>
               <div className={Style.bigCards}>
-               
-              </div>
-                  
-                  </div>:null}  
-               
-      
+              </div>     
+                  </div>:null}     
 </div>
  )
 }

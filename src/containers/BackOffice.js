@@ -4,6 +4,9 @@ import Style from './BackOffice.module.css';
 import Cards from '../components/backOffice/Cards';
 import Spinner from '../components/backOffice/Spinner';
 import ErrorMsg from '../components/ErrorMsg';
+import sha256 from 'crypto-js/sha256';
+import Base64 from 'crypto-js/enc-base64';
+
 import Axios from 'axios';
 
 
@@ -20,7 +23,8 @@ const fetchingData = async()=>{
     try{
       setIsLoading(true);
       setWaiting(false);
-      const res = await Axios.post("https://best-rates.herokuapp.com/application/", {password: password});
+      const HASH = Base64.stringify(sha256(password)); // sending hashed password to backend for check
+      const res = await Axios.post("https://best-rates.herokuapp.com/application/", {password: HASH});
       if(res.data.applications){
         setData(res.data);
         setIsLoading(false);
@@ -34,6 +38,18 @@ const fetchingData = async()=>{
     }
   }
 }
+
+const removeApplication = async(id)=>{
+    try{
+      let url = `https://best-rates.herokuapp.com/application/${id}/remove`
+      const res = await Axios.post(url);
+      console.log(res.message)
+      return fetchingData()
+    }catch(e){
+      console.log(e.message);
+    }
+}
+
 useEffect(() => {
 
 }, [data])
@@ -60,7 +76,9 @@ useEffect(() => {
               <div className={Style.cardsContainer}>
               {data? data.applications.map(el=> <Cards 
               key={el.ref}
+              id={el._id}
               refNumber={el.refNumber} 
+              removeApplication={removeApplication}
               propertyLocation={el.propertyLocation}
               propertyType={el.propertyType} 
               propertyState={el.propertyState}
@@ -73,10 +91,9 @@ useEffect(() => {
               />) : null}
               </div>
               }
-             
-              
             </div>
         )     
 }
 
 export default BackOffice;
+
