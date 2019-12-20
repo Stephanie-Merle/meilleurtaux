@@ -3,3 +3,6 @@
 body{
     font-family: 'Oswald', sans-serif;
 }
+input:invalid {
+    border: 2px solid red;
+  }
