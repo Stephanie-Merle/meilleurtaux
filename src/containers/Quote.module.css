@@ -1,9 +1,8 @@
-.quoteScreen{
-    padding: 1.3em 180px;
-}
+
 .container{
     padding-top: 1.3em;
     margin-bottom: 4em;
+    min-width: 580px;
 }
 .information{
     font-size: 1rem;
@@ -31,6 +30,7 @@
     font-size: 1.2rem;
     font-weight: 700;
     background-color: white;
+    
 }
 .select:focus{
     outline-color: #ff9e23;
@@ -72,4 +72,12 @@
     composes: select;
     composes: border;
     text-align: right;
+}
+@media (max-width: 992px) {
+    .container, .custom_input{
+        font-size: .9rem;
+    }
+    .container span{
+        display: none;
+    }
 }

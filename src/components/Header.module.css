@@ -29,4 +29,7 @@
     .header{
         padding: 1.3em 100px;
     }
-}
+    .btn{
+        width: 100px;
+    }
+ }

@@ -24,7 +24,7 @@ const Quote = ({handleQuote, data})=> {
       }
 
         return(
-            <div className={Style.quoteScreen}>
+            <div className="layout">
               <Title title={quoteData.title} hide={true}/>
               <div className={Style.container}>
                 {n? n.map(el =>  <QuoteInput data={data} handleQuote={(el)=> handleQuote({...el, "notaryFees":notaryFees, "totalCost": globalFee})} key={el} {...quoteData.queries[el]} color={el%2===0? false: true}/>):null}
@@ -38,7 +38,7 @@ const Quote = ({handleQuote, data})=> {
                     disabled={true}
                     value={notaryFees} // notary fees calculation
                     onChange={()=>handleQuote({"notaryFees":notaryFees})}
-                    />€
+                    /><span>€</span>
                   </div>
                 </div>
 
@@ -51,7 +51,7 @@ const Quote = ({handleQuote, data})=> {
                     disabled={true}
                     value={globalFee} // total cost calculation
                     onChange={()=>handleQuote({"totalCost": globalFee})}
-                    />€
+                    /><span>€</span>
                   </div>
                 </div>
 

@@ -102,11 +102,11 @@ state.map((elem, i) =>
      </Route> 
       <Route path="/Quote">
         <Quote handleQuote={handleQuote} data={data} />
-       <Navbar prev="/propertyLocation" page={5} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
+       <Navbar prev="/PropertyLocation" page={5} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
      </Route> 
-      <Route path="/propertyLocation">
+      <Route path="/PropertyLocation">
         <PropertyLocation handleLocation={handleLocation} zip={data.propertyLocation? data.propertyLocation.zip : null} />
-       <Navbar prev={state[3].link} page={4} next={data.propertyLocation? "/Quote": "/propertyLocation"} />
+       <Navbar prev={state[3].link} page={4} next={data.propertyLocation.zip !== "" ? "/Quote": "/PropertyLocation"} />
      </Route>
         {display.reverse()}
       </Switch>

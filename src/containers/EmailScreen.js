@@ -7,7 +7,7 @@ import infos from '../assets/infos.png';
 const EmailScreen = ({handleQuote, data})=> {
 
         return(
-            <div className={Style.EmailScreen}>
+            <div className="layout">
               <Title title="vos coordonées" hide={true}/>
               <div className={Style.container}>
                   <div className={Style.row}>

@@ -2,7 +2,16 @@
 
 body{
     font-family: 'Oswald', sans-serif;
+    min-width: 650px;
 }
 input:invalid {
     border: 2px solid red;
   }
+.layout{
+    padding: 1.3em 180px;
+}
+@media (max-width: 992px) {
+    .layout{
+        padding: 1.3em 100px;
+    }
+ }
