@@ -60,3 +60,8 @@
     composes: border;
     text-align: right;
 }
+@media (max-width: 992px) {
+    span{
+        display: none;
+    }
+}

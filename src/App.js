@@ -32,6 +32,24 @@ let initState = {
     isChecked: false
 }
 
+function reducer(data, action) { //using reducer to update simultaneously state and cookie
+  switch (action.type) {
+    case "SET_DATA": { // equivalent of setState({...data, ...newData})
+    Cookies.set("FormData", JSON.stringify({...data, ...action.newData}));
+      return {
+        ...data,
+        ...action.newData
+      };
+    }
+    case "RESET_DATA": { 
+    Cookies.remove("FormData");
+      return {initState};
+    }
+    default:
+      return data;
+  }
+}
+
 const App = () => {
 
 if(Cookies.get("FormData")){
@@ -39,31 +57,12 @@ if(Cookies.get("FormData")){
 }else{
   Cookies.set("FormData", JSON.stringify({...initState})); // if not, initiating a new session
 }
-
-  function reducer(data, action) {
-    switch (action.type) {
-      case "SET_DATA": { // equivalent of setState({...data, ...newData})
-      Cookies.set("FormData", JSON.stringify({...data, ...action.newData}));
-        return {
-          ...data,
-          ...action.newData
-        };
-      }
-      case "RESET_DATA": { 
-      Cookies.remove("FormData");
-        return {initState};
-      }
-      default:
-        return data;
-    }
-  }
  
 const [data, dispatch] = useReducer(reducer, initState);       
 
 const handleLocation = (el)=> {
   dispatch({type: "SET_DATA", newData: {propertyLocation: { country: el.country, zip: `${el.city} (${el.code})` }} }); 
 }
-
 const handleQuote = (el)=> {
   dispatch({type: "SET_DATA", newData: el });
 }
@@ -72,14 +71,18 @@ const resetData = ()=> {
 }
 
 let display= []; //storing all routes of the card menu with the dispatch function
+
 state.map((elem, i) => 
   display.push(
    <Route path={state[i].link} key={i}>
        <CardsContainer data={elem} setData={(el)=> dispatch({
            type: "SET_DATA",
            newData: {[elem.screen]: el}
-         })} choice={data[elem.screen]} link={data[elem.screen] && i<3? state[i+1].link : data[elem.screen]? "/propertyLocation" :  state[i].link}/>
-       <Navbar prev={i>0 ? state[(i-1)].link : state[i].link} page={i} next={data[elem.screen] && i<3 ? state[i+1].link : data[elem.screen]? "/propertyLocation" :  state[i].link} />
+        })} choice={data[elem.screen]} link={i<3?state[i+1].link : "/propertyLocation"}/>
+       <Navbar 
+        prev={i>0 ? state[(i-1)].link : state[i].link} 
+        page={i} 
+        next={data[elem.screen]? i===3? "/propertyLocation": state[i+1].link : state[i].link} />
      </Route> 
   )) 
   
@@ -99,11 +102,11 @@ state.map((elem, i) =>
      </Route> 
       <Route path="/Quote">
         <Quote handleQuote={handleQuote} data={data} />
-       <Navbar prev="/propertyLocation" page={5} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
+       <Navbar prev="/PropertyLocation" page={5} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
      </Route> 
-      <Route path="/propertyLocation">
+      <Route path="/PropertyLocation">
         <PropertyLocation handleLocation={handleLocation} zip={data.propertyLocation? data.propertyLocation.zip : null} />
-       <Navbar prev={state[3].link} page={4} next={data.propertyLocation? "/Quote": "/propertyLocation"} />
+       <Navbar prev={state[3].link} page={4} next={data.propertyLocation.zip !== "" ? "/Quote": "/PropertyLocation"} />
      </Route>
         {display.reverse()}
       </Switch>

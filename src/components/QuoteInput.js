@@ -24,7 +24,7 @@ const QuoteInput = (props)=> {
                 type="text"
                 onChange={(e)=> checkingNumber(e.target.value, props.value)}
                 value={props.data[props.value]}
-                />€
+                /><span>€</span>
             </div>
         </div>
    )
