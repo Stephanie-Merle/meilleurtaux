@@ -58,8 +58,10 @@
 }
 .rowToCheck{
     composes: row;
-    margin: 1em auto;
+    margin-top: 1em;
+    margin-left: 1em;
     align-items: center;
+
 }
 .rowToCheck div{
     margin-left: 1em;
