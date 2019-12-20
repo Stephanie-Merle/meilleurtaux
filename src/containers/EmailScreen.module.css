@@ -56,3 +56,29 @@
 .select:focus{
     outline-color: #ff9e23;
 }
+.rowToCheck{
+    composes: row;
+    margin: 1em auto;
+    align-items: center;
+}
+.rowToCheck div{
+    margin-left: 1em;
+}
+input {
+    height: 25px;
+    width: 25px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 1px solid rgb(97, 97, 97);
+    border-radius: 4px;
+    outline: none;
+    transition-duration: 0.3s;
+    background-color: rgb(217, 221, 219);
+    cursor: pointer;
+  }
+ input:checked {
+    border: 1px solid #ca780c;
+    background-color: #ff9e23;
+}

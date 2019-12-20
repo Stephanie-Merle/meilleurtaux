@@ -29,9 +29,10 @@ const EmailScreen = ({handleQuote, data})=> {
                     />
                   </div>
                 </div>
-                <div className={Style.row}>
+                <div className={Style.rowToCheck}>
                 <input 
                   type="checkbox"
+                  className={Style.checkbox}
                   checked={data.isChecked}
                   onChange={()=>handleQuote({isChecked: !data.isChecked})}
                   />
