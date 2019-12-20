@@ -18,7 +18,7 @@ const Cards = (props) => {
                 Email: {props.emailAddress} 
                 </div>
                 <div className={show? Style.bigCards: Style.cards}>
-                Code Postal: {props.propertyLocation.zip} 
+                Code Postal: {props.zip} 
                 </div>
                <div className={show? Style.bigCards: Style.cards}>
                Type de bien: {props.propertyType} 
@@ -32,7 +32,7 @@ const Cards = (props) => {
               </div>
             {show? <div className={Style.noHover} onClick={()=>setShow(show => !show)}> 
             <div className={Style.bigCards}>
-                Pays: {props.propertyLocation.country} 
+                Pays: {props.country} 
                 </div>
                 <div className={Style.bigCards}>
                 Usage: {props.propertyUsage} 

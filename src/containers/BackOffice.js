@@ -9,7 +9,6 @@ import Base64 from 'crypto-js/enc-base64';
 
 import Axios from 'axios';
 
-
 const BackOffice = ()=> {
 
     const [data, setData] = useState();
@@ -50,9 +49,7 @@ const removeApplication = async(id)=>{
     }
 }
 
-useEffect(() => {
 
-}, [data])
         return(
             <div className={Style.backOffice}>
               <Title title="Back Office" hide={true}/>
@@ -79,7 +76,8 @@ useEffect(() => {
               id={el._id}
               refNumber={el.refNumber} 
               removeApplication={removeApplication}
-              propertyLocation={el.propertyLocation}
+              zip={el.zip}
+              country={el.country}
               propertyType={el.propertyType} 
               propertyState={el.propertyState}
               totalCost={el.totalCost} 

@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import infos from '../assets/infos.png';
 import Style from './CustomInput.module.css';
+import ErrorMsg from './ErrorMsg';
 import Axios from 'axios';
 
-// TODO if selected country !== FRANCE 
+
 // TODO No information or nothing found >> Nous n'avons pas trouvé votre (orange) || Saisie obligatoire (red)
 
 const CustomInput = (props)=> {
@@ -39,20 +40,19 @@ const CustomInput = (props)=> {
       }else if(clicked){
           setClicked(false);
       }else{
-          console.log("please select FRANCE")
+          alert("please select FRANCE")
       }
   }, [zip])
- 
 
 const handleSelection =(el)=> {
+
         setShowModal(false);
         setClicked(true);
         props.handleLocation({...el, country: selected});
         setZip(`${el.city} (${el.code})`);
-        setCities("");
-    
-    
+        setCities(""); 
 }
+
 let display = null;
 
     if(props.type === "select"){
@@ -82,7 +82,9 @@ let display = null;
                 autoComplete="off"
                 value={zip}
                 onChange={(e)=>setZip(e.target.value)}
+                required={props.error && !zip}
                 />
+                {props.error && !zip? <div className={Style.space}> <ErrorMsg error={props.error} text="Veuillez renseigner le code postal" /></div>: null}
                 <div className={showModal? Style.modal : Style.none}><ul>{cities? cities.map((el, i) => <li key={i} className={Style.list} onClick={()=>handleSelection(el)} >{el.city} ({el.code})</li>) :null }</ul></div>
             </div>
         </div>
