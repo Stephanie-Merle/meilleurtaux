@@ -8,7 +8,6 @@ import Spinner from '../components/backOffice/Spinner';
 const LastScreen = ({resetData})=> {
 
 const [ref, setRef] = useState("") // to display the refNumber after we get it
-const [isError, setError] = useState(false) // to display error message if needed
 const [isLoading, setIsLoading] = useState(true) 
 
 const sendingData = async() => {
@@ -20,13 +19,10 @@ const sendingData = async() => {
       // Cookies.remove("FormData") // removing cookie already in reducer
       setRef(res.data.refNumber) // store refNumber to display it
       return resetData();
-    }else{
-      return console.log("Please fill the form first")
     }
   }catch(e){
     console.log(e.message)
     setIsLoading(false)
-    setError(true)
   }
 }
 useEffect(() => { // useEffect only called once
@@ -43,7 +39,7 @@ useEffect(() => { // useEffect only called once
               <p>Votre numéro de dossier est le: {ref}</p>
               <p>Mentions légales</p>
               </>
-              :<p>Une erreur est survenue</p>}}
+              :<p>Une erreur est survenue</p>}
             </div>
         )     
 }

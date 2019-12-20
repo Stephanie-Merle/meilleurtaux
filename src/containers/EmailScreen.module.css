@@ -84,3 +84,14 @@ input {
     border: 1px solid #ca780c;
     background-color: #ff9e23;
 }
+.space{
+    display: flex;
+    height: 20px;
+    padding-left: 1em;
+    margin-top: .5em;
+}
+.bigSpace{
+    composes: space;
+    padding-left: 4em;
+
+}

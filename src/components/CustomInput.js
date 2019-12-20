@@ -45,6 +45,7 @@ const CustomInput = (props)=> {
   }, [zip])
 
 const handleSelection =(el)=> {
+
         setShowModal(false);
         setClicked(true);
         props.handleLocation({...el, country: selected});
@@ -81,9 +82,9 @@ let display = null;
                 autoComplete="off"
                 value={zip}
                 onChange={(e)=>setZip(e.target.value)}
-                required={props.error}
+                required={props.error && !zip}
                 />
-                {props.error && zip.length===0? <div className={Style.space}> <ErrorMsg error={props.error} text="Veuillez renseigner le code postal" /></div>: null}
+                {props.error && !zip? <div className={Style.space}> <ErrorMsg error={props.error} text="Veuillez renseigner le code postal" /></div>: null}
                 <div className={showModal? Style.modal : Style.none}><ul>{cities? cities.map((el, i) => <li key={i} className={Style.list} onClick={()=>handleSelection(el)} >{el.city} ({el.code})</li>) :null }</ul></div>
             </div>
         </div>

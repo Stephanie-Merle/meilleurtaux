@@ -3,8 +3,9 @@ import Title from '../components/Title';
 import cover from '../assets/visuel-desktop-email.jpg';
 import Style from './EmailScreen.module.css';
 import infos from '../assets/infos.png';
+import ErrorMsg from '../components/ErrorMsg';
 
-const EmailScreen = ({handleQuote, data})=> {
+const EmailScreen = ({handleQuote, error, data})=> {
 
         return(
             <div className="layout">
@@ -26,7 +27,10 @@ const EmailScreen = ({handleQuote, data})=> {
                     type="email"
                     value={data.emailAddress}
                     onChange={(e)=>handleQuote({emailAddress: e.target.value})}
+                    required={error && !data.emailAddress}
                     />
+                    {error && !data.emailAddress? <div className={Style.space}> <ErrorMsg error={error} text="Veuillez saisir votre adresse email" /></div>: null}
+
                   </div>
                 </div>
                 <div className={Style.rowToCheck}>
@@ -35,9 +39,11 @@ const EmailScreen = ({handleQuote, data})=> {
                   className={Style.checkbox}
                   checked={data.isChecked}
                   onChange={()=>handleQuote({isChecked: !data.isChecked})}
+                  required={error && !data.isChecked}
                   />
                   <div onClick={()=>handleQuote({isChecked: !data.isChecked})}>J'accepte de recevoir par email des propositions de MeilleurTaux.com</div>
                 </div>
+                {error && !data.isChecked? <div className={Style.bigSpace}> <ErrorMsg error={error} text="Veuillez accepter la récéption d'email" /></div>: null}
               </div>
             </div>
         )     
