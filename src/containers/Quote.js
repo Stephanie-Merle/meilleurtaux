@@ -6,7 +6,7 @@ import quoteData from '../assets/quoteData.json';
 import infos from '../assets/infos.png';
 
 
-const Quote = ({handleQuote, data})=> {
+const Quote = ({handleQuote, data, error})=> {
 
       const n = Object.keys(quoteData.queries)
 
@@ -27,7 +27,7 @@ const Quote = ({handleQuote, data})=> {
             <div className="layout">
               <Title title={quoteData.title} hide={true}/>
               <div className={Style.container}>
-                {n? n.map(el =>  <QuoteInput data={data} handleQuote={(el)=> handleQuote({...el, "notaryFees":notaryFees, "totalCost": globalFee})} key={el} {...quoteData.queries[el]} color={el%2===0? false: true}/>):null}
+                {n? n.map((el, i) =>  <QuoteInput error={error} i={i} data={data} handleQuote={(el)=> handleQuote({...el, "notaryFees":notaryFees, "totalCost": globalFee})} key={el} {...quoteData.queries[el]} color={el%2===0? false: true}/>):null}
 
                 <div className={[Style.custom_input, Style.color].join(" ")}>
                   <div className={Style.title}>{quoteData.calculatedField[0].title}</div>

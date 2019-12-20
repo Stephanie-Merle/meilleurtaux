@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import Style from './Navbar.module.css'
 
 
-const Navbar = (props) => {
+const Navbar = ({prev, page, next, handleError}) => {
  return(
    <>
    <div className={Style.navbar}>
-     {props.page >0? <Link to={props.prev} className={Style.underline}>Précédent</Link> : <div className={Style.underline}/>}
+     {page >0? <Link to={prev} className={Style.underline}>Précédent</Link> : <div className={Style.underline}/>}
      <div className={Style.progressBar}> 
-       <div style={{position: "absolute", left: `${Math.round((props.page/7)*400)}px`, top: "-20px"}}>
-        <div className={Style.percentage}>{Math.round((props.page/7)*100)}%</div>
+       <div style={{position: "absolute", left: `${Math.round((page/7)*400)}px`, top: "-20px"}}>
+        <div className={Style.percentage}>{Math.round((page/7)*100)}%</div>
        </div>
      </div>
-     <Link to={props.next} className={Style.btn}>{props.page===6?"Valider":"Suivant"}</Link>
+     <Link to={next} onClick={handleError} className={Style.btn}>{page===6?"Valider":"Suivant"}</Link>
    </div>
    <div className={Style.nb}>* Champ obligatoire - <span className={Style.underline}>Mentions Légales</span></div>
    </>

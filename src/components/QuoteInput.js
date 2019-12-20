@@ -1,6 +1,7 @@
 import React from 'react';
 import infos from '../assets/infos.png';
 import Style from './CustomInput.module.css';
+import ErrorMsg from './ErrorMsg';
 
 
 const QuoteInput = (props)=> {
@@ -24,7 +25,9 @@ const QuoteInput = (props)=> {
                 type="text"
                 onChange={(e)=> checkingNumber(e.target.value, props.value)}
                 value={props.data[props.value]}
+                required={props.error && props.i!==2}
                 /><span>€</span>
+                {props.error && !props.data[props.value] && props.i!==2? <div className={Style.space}> <ErrorMsg error={props.error} text="Veuillez renseigner ce montant" /></div>: null}
             </div>
         </div>
    )
