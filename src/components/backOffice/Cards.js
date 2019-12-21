@@ -5,7 +5,7 @@ const Cards = (props) => {
   const [show, setShow] = useState(false); //state to toggle short vs total view
   let update = props.removeApplication;
  return(
-       <div className={show? Style.total : Style.bigContainer} >
+       <div className={show? Style.total : Style.bigContainer} key={props.ref}>
        
     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" onClick={()=>update(props.id)} viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 3h18v18H3zM15 9l-6 6m0-6l6 6"/>

@@ -8,6 +8,7 @@ const PropertyLocation = ({handleLocation, handlePage, zip, error})=> {
   
   useEffect(() => {
     handlePage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
   const n = Object.keys(location.queries);

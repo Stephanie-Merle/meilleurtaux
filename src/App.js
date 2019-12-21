@@ -58,16 +58,6 @@ if(Cookies.get("FormData")){
 
 const [data, dispatch] = useReducer(reducer, initState);       
 
-const handleLocation = (el)=> {
-  dispatch({type: "SET_DATA", newData: {country: el.country, zip: `${el.city} (${el.code})`  }}); 
-}
-const resetData = ()=> {
-  dispatch({type: "RESET_DATA"});
-}
-const handleState = (el)=> {
-  dispatch({type: "SET_DATA", newData: el });
-}
-
 let display= []; //storing all routes of the card menu with the dispatch function
 
 const [errorLocation, setErrorLocation] = useState(false); // handle errors on propertyLocation page
@@ -101,7 +91,7 @@ state.map((elem, i) =>
            type: "SET_DATA",
            newData: {[elem.screen]: el}})} 
           choice={data[elem.screen]} 
-          handlePage={()=>handleState({path: state[i].link})}
+          handlePage={()=>dispatch({type: "SET_DATA", newData: {path: state[i].link}})}
           link={i<3?state[i+1].link : "/propertyLocation"}/>
        <Navbar 
         prev={i>0 ? state[(i-1)].link : state[i].link} 
@@ -119,30 +109,30 @@ state.map((elem, i) =>
      </Route>
       <Route path="/LastScreen">
         <LastScreen 
-          handlePage={()=>handleState({path: "/PropertyType"})}
-          resetData={resetData}/>
+          handlePage={()=>dispatch({type: "SET_DATA", newData: {path: "/PropertyType"} })}
+          resetData={()=>dispatch({type: "RESET_DATA"})}/>
      </Route> 
       <Route path="/Confirmation">
         <EmailScreen 
-          handleState={handleState} 
+          handleState={(el)=>dispatch({type: "SET_DATA", newData: el })} 
           error={errorEmail} 
-          handlePage={()=>handleState({path: "/Confirmation"})}
+          handlePage={()=>dispatch({type: "SET_DATA", newData: {path: "/Confirmation"} })}
           data={data}/>
        <Navbar prev="/Quote" page={6} handleError={()=>handleError(6)} next={data.isChecked && data.emailAddress? "/LastScreen": "/Confirmation"} />
      </Route> 
       <Route path="/Quote">
         <Quote 
-          handleQuote={handleState} 
+          handleQuote={(el)=>dispatch({type: "SET_DATA", newData: el})} 
           error={errorQuote} 
-          handlePage={()=>handleState({path: "/Quote"})}
+          handlePage={()=>dispatch({type: "SET_DATA", newData: {path: "/Quote"}})}
           data={data} />
        <Navbar prev="/PropertyLocation" page={5} handleError={()=>handleError(5)} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
      </Route> 
       <Route path="/PropertyLocation">
         <PropertyLocation 
-          handleLocation={handleLocation} 
+          handleLocation={(el)=>dispatch({type: "SET_DATA", newData: {country: el.country, zip: `${el.city} (${el.code})`  }})} 
           error={errorLocation} 
-          handlePage={()=>handleState({path: "/PropertyLocation"})}
+          handlePage={()=>dispatch({type: "SET_DATA", newData: {path: "/PropertyLocation"}})}
           zip={data.zip} />
        <Navbar prev={state[3].link} page={4} handleError={()=>handleError(4)} next={data.zip ? "/Quote": "/PropertyLocation"} />
      </Route>

@@ -34,6 +34,9 @@ const fetchingData = async()=>{
       }
     }catch(e){
       console.log(e.message);
+      setIsLoading(false);
+        setIsError(true);
+        setWaiting(true);
     }
   }
 }
@@ -48,28 +51,29 @@ const removeApplication = async(id)=>{
       console.log(e.message);
     }
 }
+let firstScreen = (
+  <div className={Style.row}>
+      <div>
+          <input 
+                className={Style.select}
+                type="password"
+                placeholder="ENTER YOUR PASSWORD"
+                onChange={(e)=>setPassword(e.target.value)}
+                required={isError}/>
+          <ErrorMsg error={isError} text="Mot de passe incorrect" />
+      </div>
+    <button className={Style.btn} onClick={()=>fetchingData()}>GO</button>
+  </div>
+)
 
-    return(
-        <div className={Style.backOffice}>
-          <Title title="Back Office" hide={true}/>
-          {waiting? (
-              <div className={Style.row}>
-                  <div>
-                      <input 
-                            className={Style.select}
-                            type="password"
-                            placeholder="ENTER YOUR PASSWORD"
-                            onChange={(e)=>setPassword(e.target.value)}
-                            required={isError}/>
-                      <ErrorMsg error={isError} text="Mot de passe incorrect" />
-                  </div>
-                <button className={Style.btn} onClick={()=>fetchingData()}>GO</button>
-              </div>
-              ):
-              isLoading? <div className={Style.spinner}><Spinner /></div>: 
+let displaySpinner = (
+<div className={Style.spinner}><Spinner /></div>)
+ 
+let displayAllData =(
+
               <div className={Style.cardsContainer}>
                 {data? data.applications.map(el=> <Cards 
-                key={el.ref}
+                key={el._id}
                 id={el._id}
                 refNumber={el.refNumber} 
                 removeApplication={removeApplication}
@@ -83,10 +87,16 @@ const removeApplication = async(id)=>{
                 landCost={el.landCost}
                 estimatedPrice={el.estimatedPrice}
                 renovationCost={el.renovationCost}
-              />) : null}
-              </div>}
-            </div>
-        )     
+              />)  : <p>Aucune donnée disponible</p>}
+              </div>
+              )
+
+    return(
+        <div className={Style.backOffice}>
+          <Title title="Back Office" hide={true}/>
+          {waiting? firstScreen : (isLoading? displaySpinner: displayAllData) }
+           </div>
+          )    
 }
 
 export default BackOffice;

@@ -10,6 +10,7 @@ const Quote = ({handleQuote, handlePage, data, error})=> {
 
   useEffect(() => {
     handlePage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
       const n = Object.keys(quoteData.queries)
 

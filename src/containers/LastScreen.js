@@ -11,28 +11,30 @@ const [ref, setRef] = useState("") // to display the refNumber after we get it
 const [isLoading, setIsLoading] = useState(true) 
 const [isSent, setIsSent] = useState(false) 
 
-const sendingData = async() => {
-  try{
-    const data = Cookies.get("FormData"); // getting all stored informations
-    if(data){
-      if(ref){
-        setIsLoading(false);
-        return setIsSent(true);
-      }else{
-        const res = await Axios.post("https://best-rates.herokuapp.com/application/create", JSON.parse(data)); //send application to DB
-        setRef(res.data.refNumber) // store refNumber to display it
-        await resetData(); 
-        return setIsLoading(false); 
-      }  
-    }
-  }catch(e){
-    console.log(e.message)
-    setIsLoading(false)
-  }
-}
+
 useEffect(() => { // useEffect only called once
+  const sendingData = async() => {
+    try{
+      const data = Cookies.get("FormData"); // getting all stored informations
+      if(data){
+        if(ref){
+          setIsLoading(false);
+          return setIsSent(true);
+        }else{
+          const res = await Axios.post("https://best-rates.herokuapp.com/application/create", JSON.parse(data)); //send application to DB
+          setRef(res.data.refNumber) // store refNumber to display it
+          await resetData(); 
+          return setIsLoading(false); 
+        }  
+      }
+    }catch(e){
+      console.log(e.message)
+      setIsLoading(false)
+    }
+  }
   sendingData()
   handlePage()
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
         return(

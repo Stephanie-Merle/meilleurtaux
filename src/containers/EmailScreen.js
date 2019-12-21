@@ -9,6 +9,7 @@ const EmailScreen = ({handleState, handlePage, error, data})=> {
 
   useEffect(() => {
     handlePage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
         return(
