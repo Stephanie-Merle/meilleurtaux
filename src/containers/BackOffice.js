@@ -49,46 +49,42 @@ const removeApplication = async(id)=>{
     }
 }
 
-
-        return(
-            <div className={Style.backOffice}>
-              <Title title="Back Office" hide={true}/>
-              {waiting? (
-                <div className={Style.row}>
+    return(
+        <div className={Style.backOffice}>
+          <Title title="Back Office" hide={true}/>
+          {waiting? (
+              <div className={Style.row}>
                   <div>
-              <input 
-                    className={Style.select}
-                    type="password"
-                    placeholder="ENTER YOUR PASSWORD"
-                    onChange={(e)=>setPassword(e.target.value)}
-                    required={isError}
-                    />
-                    <ErrorMsg error={isError} text="Mot de passe incorrect" />
-                    </div>
-            <button className={Style.btn} onClick={()=>fetchingData()}>GO</button>
-             
+                      <input 
+                            className={Style.select}
+                            type="password"
+                            placeholder="ENTER YOUR PASSWORD"
+                            onChange={(e)=>setPassword(e.target.value)}
+                            required={isError}/>
+                      <ErrorMsg error={isError} text="Mot de passe incorrect" />
+                  </div>
+                <button className={Style.btn} onClick={()=>fetchingData()}>GO</button>
               </div>
               ):
               isLoading? <div className={Style.spinner}><Spinner /></div>: 
               <div className={Style.cardsContainer}>
-              {data? data.applications.map(el=> <Cards 
-              key={el.ref}
-              id={el._id}
-              refNumber={el.refNumber} 
-              removeApplication={removeApplication}
-              zip={el.zip}
-              country={el.country}
-              propertyType={el.propertyType} 
-              propertyState={el.propertyState}
-              totalCost={el.totalCost} 
-              emailAddress={el.emailAddress} 
-              propertyUsage={el.propertyUsage}
-              landCost={el.landCost}
-              estimatedPrice={el.estimatedPrice}
-              renovationCost={el.renovationCost}
+                {data? data.applications.map(el=> <Cards 
+                key={el.ref}
+                id={el._id}
+                refNumber={el.refNumber} 
+                removeApplication={removeApplication}
+                zip={el.zip}
+                country={el.country}
+                propertyType={el.propertyType} 
+                propertyState={el.propertyState}
+                totalCost={el.totalCost} 
+                emailAddress={el.emailAddress} 
+                propertyUsage={el.propertyUsage}
+                landCost={el.landCost}
+                estimatedPrice={el.estimatedPrice}
+                renovationCost={el.renovationCost}
               />) : null}
-              </div>
-              }
+              </div>}
             </div>
         )     
 }

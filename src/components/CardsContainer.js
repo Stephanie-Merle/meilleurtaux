@@ -5,6 +5,7 @@ import Card from './Card';
 
 const CardsContainer = (props) => {
     const data = props.data;
+   
     useEffect(() => {
         props.handlePage();
     }, [])

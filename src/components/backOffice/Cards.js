@@ -12,8 +12,7 @@ const Cards = (props) => {
     </svg>
     <div className={show? Style.noHover : Style.container} onClick={()=>setShow(show => !show)}> 
           <div className={show? Style.bigCards: Style.cards}>
-                ref: {props.refNumber} 
-                </div>
+                ref: {props.refNumber} </div>
                 <div className={show? Style.bigCards: Style.cards}>
                 Email: {props.emailAddress} 
                 </div>
@@ -48,7 +47,7 @@ const Cards = (props) => {
               </div>
               <div className={Style.bigCards}>
               </div>     
-                  </div>:null}     
+      </div>:null}     
 </div>
  )
 }

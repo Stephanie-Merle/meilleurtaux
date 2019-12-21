@@ -4,19 +4,16 @@ import Style from './CustomInput.module.css';
 import ErrorMsg from './ErrorMsg';
 import Axios from 'axios';
 
-
-// TODO No information or nothing found >> Nous n'avons pas trouvé votre (orange) || Saisie obligatoire (red)
-
 const CustomInput = (props)=> {
-    const [zip, setZip] = useState(props.zip);
-    const [cities, setCities] = useState();
+    const [zip, setZip] = useState(props.zip); // state to handle choice from API
+    const [cities, setCities] = useState();  // state to handle choice from API
     const [selected, setSelect] = useState("FRANCE");
-    const [showModal, setShowModal] = useState(false);
-    const [clicked, setClicked] = useState(true);
+    const [showModal, setShowModal] = useState(false); // modal to display API results
+    const [clicked, setClicked] = useState(true); // state to set if API result was chose
     
 
     const fetchingData = async() => {
-        if(selected === "FRANCE" && zip){
+        if(selected === "FRANCE" && zip){ 
             if(zip.length > 2){ // case of an number input with minimum 3 numbers
                 try{
                     const res = await Axios.get(`https://vicopo.selfbuild.fr/cherche/${zip}`);
@@ -42,10 +39,10 @@ const CustomInput = (props)=> {
       }else{
           alert("please select FRANCE")
       }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [zip])
 
-const handleSelection =(el)=> {
-
+const handleSelection =(el)=> { //handle click on API result
         setShowModal(false);
         setClicked(true);
         props.handleLocation({...el, country: selected});

@@ -5,7 +5,6 @@ const ErrorMsg = (props) => {
  return(
      <>
      {props.error? <p className={[Style.errorMsg, props.style].join(" ")}>{props.text}</p> : null }
-   
    </>
  )
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import Style from './Navbar.module.css'
 
-
 const Navbar = ({prev, page, next, handleError}) => {
  return(
    <>
