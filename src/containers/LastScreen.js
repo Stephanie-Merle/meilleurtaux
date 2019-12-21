@@ -41,14 +41,13 @@ useEffect(() => { // useEffect only called once
             <div className="layout">
               {isLoading? 
               <div className={Style.spinner}>  <Spinner/> </div>: 
-              isSent? <Title title="Votre dossier à déjà été envoyé!" hide={true}/> :
               ref? 
               <>
                 <Title title="Et voilà, le formulaire est terminé!" hide={true}/>
               <p>Votre numéro de dossier est le: {ref}</p>
               <p>Mentions légales</p>
               </>
-              :<p>Une erreur est survenue</p>}
+              :<Title title="Votre dossier à déjà été envoyé!" hide={true}/>}
             </div>
         )     
 }
