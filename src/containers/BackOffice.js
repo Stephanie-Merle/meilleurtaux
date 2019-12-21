@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Title from '../components/Title';
 import Style from './BackOffice.module.css';
 import Cards from '../components/backOffice/Cards';

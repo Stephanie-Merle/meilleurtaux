@@ -1,5 +1,5 @@
 import React, {useReducer, useState} from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Cookies from "js-cookie"; 
 import Layout from './components/Layout'; // including header
 import CardsContainer from './components/CardsContainer'; // component to generate 1st, 2nd and 3rd Screens
@@ -15,6 +15,7 @@ import './App.css';
 
 // initState in case we don't have a session already
 let initState = {
+  path: "/PropertyType",
   propertyType: "",
   propertyState: "",
   propertyUsage: "",
@@ -42,7 +43,7 @@ function reducer(data, action) { //using reducer to update simultaneously state 
     }
     case "RESET_DATA": { //removing cookie when information is stored and email sent
     Cookies.remove("FormData");
-      return {initState};
+      return {};
     }
     default:
       return data;
@@ -53,20 +54,18 @@ const App = () => {
 
 if(Cookies.get("FormData")){
   initState = JSON.parse(Cookies.get("FormData")); // getting information if existing session
-}else{
-  Cookies.set("FormData", JSON.stringify({...initState}),{ expires: 2 }); // if not, initiate new session
 }
- 
+
 const [data, dispatch] = useReducer(reducer, initState);       
 
 const handleLocation = (el)=> {
   dispatch({type: "SET_DATA", newData: {country: el.country, zip: `${el.city} (${el.code})`  }}); 
 }
-const handleQuote = (el)=> {
-  dispatch({type: "SET_DATA", newData: el });
-}
 const resetData = ()=> {
   dispatch({type: "RESET_DATA"});
+}
+const handleState = (el)=> {
+  dispatch({type: "SET_DATA", newData: el });
 }
 
 let display= []; //storing all routes of the card menu with the dispatch function
@@ -96,18 +95,20 @@ const handleError = (page) =>{ // return errors when some required information a
 state.map((elem, i) => 
   display.push(
    <Route path={state[i].link} key={i}>
-       <CardsContainer data={elem} setData={(el)=> dispatch({
+       <CardsContainer 
+          data={elem} 
+          setData={(el)=> dispatch({
            type: "SET_DATA",
-           newData: {[elem.screen]: el}
-        })} choice={data[elem.screen]} link={i<3?state[i+1].link : "/propertyLocation"}/>
+           newData: {[elem.screen]: el}})} 
+          choice={data[elem.screen]} 
+          handlePage={()=>handleState({path: state[i].link})}
+          link={i<3?state[i+1].link : "/propertyLocation"}/>
        <Navbar 
         prev={i>0 ? state[(i-1)].link : state[i].link} 
         page={i} 
         next={data[elem.screen]? i===3? "/propertyLocation": state[i+1].link : state[i].link} />
      </Route> 
   )) 
-
-
 
  return(
    <Router>
@@ -117,23 +118,39 @@ state.map((elem, i) =>
         <BackOffice />
      </Route>
       <Route path="/LastScreen">
-        <LastScreen resetData={resetData}/>
+        <LastScreen 
+          handlePage={()=>handleState({path: "/PropertyType"})}
+          resetData={resetData}/>
      </Route> 
       <Route path="/Confirmation">
-        <EmailScreen handleQuote={handleQuote} error={errorEmail} data={data}/>
+        <EmailScreen 
+          handleState={handleState} 
+          error={errorEmail} 
+          handlePage={()=>handleState({path: "/Confirmation"})}
+          data={data}/>
        <Navbar prev="/Quote" page={6} handleError={()=>handleError(6)} next={data.isChecked && data.emailAddress? "/LastScreen": "/Confirmation"} />
      </Route> 
       <Route path="/Quote">
-        <Quote handleQuote={handleQuote} error={errorQuote} data={data} />
+        <Quote 
+          handleQuote={handleState} 
+          error={errorQuote} 
+          handlePage={()=>handleState({path: "/Quote"})}
+          data={data} />
        <Navbar prev="/PropertyLocation" page={5} handleError={()=>handleError(5)} next={data.landCost && data.estimatedPrice? "/Confirmation": "/Quote"} />
      </Route> 
       <Route path="/PropertyLocation">
-        <PropertyLocation handleLocation={handleLocation} error={errorLocation} zip={data.zip} />
+        <PropertyLocation 
+          handleLocation={handleLocation} 
+          error={errorLocation} 
+          handlePage={()=>handleState({path: "/PropertyLocation"})}
+          zip={data.zip} />
        <Navbar prev={state[3].link} page={4} handleError={()=>handleError(4)} next={data.zip ? "/Quote": "/PropertyLocation"} />
      </Route>
         {display.reverse()}
+     <Route path="/">
+        <Redirect to={data.path? data.path: "/PropertyType"} />
+     </Route> 
       </Switch>
-    
    </Layout>
    </Router>
  )

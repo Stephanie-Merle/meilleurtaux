@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Style from './CardsContainer.module.css';
 import Title from './Title';
 import Card from './Card';
 
 const CardsContainer = (props) => {
     const data = props.data;
+    useEffect(() => {
+        props.handlePage();
+    }, [])
     
  return(
     <div className={Style.container}>

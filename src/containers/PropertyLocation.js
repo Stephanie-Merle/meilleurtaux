@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Title from '../components/Title';
 import Style from './PropertyLocation.module.css';
 import CustomInput from '../components/CustomInput';
 import location from '../assets/location.json';
 
-const PropertyLocation = ({handleLocation, zip, error})=> {
-
-      const n = Object.keys(location.queries)
+const PropertyLocation = ({handleLocation, handlePage, zip, error})=> {
+  
+  useEffect(() => {
+    handlePage()
+  }, [])
+  
+  const n = Object.keys(location.queries);
 
         return(
             <div className="layout">

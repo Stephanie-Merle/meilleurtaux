@@ -5,20 +5,25 @@ import Axios from 'axios';
 import Cookies from "js-cookie";
 import Spinner from '../components/backOffice/Spinner';
 
-const LastScreen = ({resetData})=> {
+const LastScreen = ({resetData, handlePage})=> {
 
 const [ref, setRef] = useState("") // to display the refNumber after we get it
 const [isLoading, setIsLoading] = useState(true) 
+const [isSent, setIsSent] = useState(false) 
 
 const sendingData = async() => {
   try{
     const data = Cookies.get("FormData"); // getting all stored informations
     if(data){
-      const res = await Axios.post("https://best-rates.herokuapp.com/application/create", JSON.parse(data)); //send application to DB
-      setIsLoading(false)
-      // Cookies.remove("FormData") // removing cookie already in reducer
-      setRef(res.data.refNumber) // store refNumber to display it
-      return resetData();
+      if(ref){
+        setIsLoading(false);
+        return setIsSent(true);
+      }else{
+        const res = await Axios.post("https://best-rates.herokuapp.com/application/create", JSON.parse(data)); //send application to DB
+        setRef(res.data.refNumber) // store refNumber to display it
+        await resetData(); 
+        return setIsLoading(false); 
+      }  
     }
   }catch(e){
     console.log(e.message)
@@ -27,12 +32,14 @@ const sendingData = async() => {
 }
 useEffect(() => { // useEffect only called once
   sendingData()
+  handlePage()
 }, [])
 
         return(
             <div className="layout">
               {isLoading? 
               <div className={Style.spinner}>  <Spinner/> </div>: 
+              isSent? <Title title="Votre dossier à déjà été envoyé!" hide={true}/> :
               ref? 
               <>
                 <Title title="Et voilà, le formulaire est terminé!" hide={true}/>

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Title from '../components/Title';
 import cover from '../assets/visuel-desktop-email.jpg';
 import Style from './EmailScreen.module.css';
 import infos from '../assets/infos.png';
 import ErrorMsg from '../components/ErrorMsg';
 
-const EmailScreen = ({handleQuote, error, data})=> {
+const EmailScreen = ({handleState, handlePage, error, data})=> {
+
+  useEffect(() => {
+    handlePage()
+  }, [])
 
         return(
             <div className="layout">
@@ -26,7 +30,7 @@ const EmailScreen = ({handleQuote, error, data})=> {
                     className={Style.select}
                     type="email"
                     value={data.emailAddress}
-                    onChange={(e)=>handleQuote({emailAddress: e.target.value})}
+                    onChange={(e)=>handleState({emailAddress: e.target.value})}
                     required={error && !data.emailAddress}
                     />
                     {error && !data.emailAddress? <div className={Style.space}> <ErrorMsg error={error} text="Veuillez saisir votre adresse email" /></div>: null}
@@ -38,10 +42,10 @@ const EmailScreen = ({handleQuote, error, data})=> {
                   type="checkbox"
                   className={Style.checkbox}
                   checked={data.isChecked}
-                  onChange={()=>handleQuote({isChecked: !data.isChecked})}
+                  onChange={()=>handleState({isChecked: !data.isChecked})}
                   required={error && !data.isChecked}
                   />
-                  <div onClick={()=>handleQuote({isChecked: !data.isChecked})}>J'accepte de recevoir par email des propositions de MeilleurTaux.com</div>
+                  <div onClick={()=>handleState({isChecked: !data.isChecked})}>J'accepte de recevoir par email des propositions de MeilleurTaux.com</div>
                 </div>
                 {error && !data.isChecked? <div className={Style.bigSpace}> <ErrorMsg error={error} text="Veuillez accepter la récéption d'email" /></div>: null}
               </div>
