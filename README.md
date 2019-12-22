@@ -1,5 +1,7 @@
 # CERTIFICATION PROJECT
 
+https://best-rates.netlify.com/
+
 React project with frontend, Back office on Netlify and Backend with Express / Node.js on Heroku.
 Data hosted on MongoDB via mLab.
 Email notification is sent with Mailgun after filling the form.
