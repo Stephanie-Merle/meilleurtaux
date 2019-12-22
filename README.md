@@ -23,8 +23,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - error handling and notification for the user
 
 <div style="display:flex; margin:auto">
-<img src="./src/assets/readme/Screenshot 2019-12-22 at 19.54.09.png" width="49%" height="49%" title="wide-screen">
+<img src="./src/assets/readme/Screenshot 2019-12-22 at 19.54.09.png" width="90%" height="90%" title="wide-screen">
 </div>
+<hr/>
 <div style="display:flex; margin:auto">
-<img src="./src/assets/readme/Screenshot 2019-12-22 at 19.54.48.png" width="49%" height="49%" title="wide-screen">
+<img src="./src/assets/readme/Screenshot 2019-12-22 at 19.54.48.png" width="90%" height="90%" title="wide-screen">
 </div>
